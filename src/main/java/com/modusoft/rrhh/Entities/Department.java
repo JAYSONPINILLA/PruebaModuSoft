@@ -10,10 +10,12 @@ package com.modusoft.rrhh.Entities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,13 +33,13 @@ public class Department {
      * Identificador único del departamento: dept_no CHAR(4).
      */    
     @Id
-    @Column(length=4)
+    @Column(length=4, columnDefinition = "CHAR(4) NOT NULL")
     private String dept_no;
 
     /**
      * Nombre del departamento: dept_name.
      */      
-    @Column(length=40)
+    @Column(length=40, columnDefinition = "VARCHAR(40) NOT NULL")
     private String dept_name;
 
     /**
@@ -51,4 +53,5 @@ public class Department {
      */      
     @ManyToMany(mappedBy="deptEmps")
     private List<Employe> employeesEmp;
+   
 }

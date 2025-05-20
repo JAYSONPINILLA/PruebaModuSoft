@@ -6,8 +6,8 @@ import com.modusoft.rrhh.DTOs.DepartmentDTO;
 
 public interface IDepartment {
     public List<DepartmentDTO> findAll();
-    public DepartmentDTO findById(Integer id);
+    public DepartmentDTO findById(String id);
     public DepartmentDTO create(DepartmentDTO dto);
-    public DepartmentDTO update(Integer id, DepartmentDTO dto);
-    public void deleteById(Integer id);
+    public DepartmentDTO update(String id, DepartmentDTO dto);
+    public void deleteById(String id);
 }

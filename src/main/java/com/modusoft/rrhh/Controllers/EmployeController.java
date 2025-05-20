@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.modusoft.rrhh.DTOs.DepartmentEmployeDTO;
 import com.modusoft.rrhh.DTOs.EmployeDTO;
+import com.modusoft.rrhh.Entities.DepartmentEmploye;
 import com.modusoft.rrhh.Services.EmployeService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,6 +44,18 @@ public class EmployeController {
     @Operation(summary = "Obtiene todos los registros de la tabla Employees")
     public ResponseEntity<List<EmployeDTO>> findAll(){
         return ResponseEntity.ok(employeservice.findAll());
+    }
+
+    /**
+     * Obtiene todos los Employees Por ID de departamento.
+     *
+     * @return Obtiene todos los registros de la tabla Employees por ID de Departamento
+     */    
+    
+    @GetMapping("/dept/{id}")
+    @Operation(summary = "Obtiene todos los registros de la tabla Employees por Departamento")
+    public ResponseEntity<List<DepartmentEmployeDTO>> findAll(@PathVariable String id){
+        return ResponseEntity.ok(employeservice.findByDeptId(id));
     }
 
     /**

@@ -9,6 +9,7 @@ package com.modusoft.rrhh.Entities;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -45,10 +46,12 @@ public class Title {
     /**
      * Campo desde(fecha).
      */
+    @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private LocalDate from_date;
 
     /**
      * Campo hasta(fecha).
      */
+    @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private LocalDate to_date;
 }

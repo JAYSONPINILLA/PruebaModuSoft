@@ -1,13 +1,18 @@
 package com.modusoft.rrhh.Services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.modusoft.rrhh.DTOs.DepartmentEmployeDTO;
 import com.modusoft.rrhh.DTOs.EmployeDTO;
+import com.modusoft.rrhh.Entities.DepartmentEmploye;
 import com.modusoft.rrhh.Entities.Employe;
 import com.modusoft.rrhh.Exceptions.ResourceNotFoundException;
+import com.modusoft.rrhh.Repositories.DepartmentEmployeRepository;
 import com.modusoft.rrhh.Repositories.EmployeRepository;
 import com.modusoft.rrhh.ServicesInterfaces.IEmploye;
 
@@ -26,6 +31,20 @@ public class EmployeService implements IEmploye{
     public EmployeDTO findById(Integer id) {
         return convertToDTO(repo.findById(id).get());
     }
+    
+    @Override
+    public List<DepartmentEmployeDTO> findByDeptId(String id) {
+        List<DepartmentEmployeDTO> ListaDTO = new ArrayList<>();
+        List<Object[]> lista = repo.findByDeptId(id);
+        for(Object[] row : lista){
+            DepartmentEmployeDTO dto = new DepartmentEmployeDTO();
+            Integer empno = (Integer) row[0];
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+
+        
+    }
 
     @Override
     public EmployeDTO create(EmployeDTO dto) {
@@ -35,7 +54,6 @@ public class EmployeService implements IEmploye{
 
     @Override
     public EmployeDTO update(Integer id, EmployeDTO dto) {
-        //Employe e = repo.findById(id).get();
         Employe e = repo.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException("Empleado no encontrado con EMP_No: " + id));
 

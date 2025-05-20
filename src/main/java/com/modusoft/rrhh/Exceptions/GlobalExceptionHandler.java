@@ -11,7 +11,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class GlobalExceptionHandler {
 
     /**
@@ -41,10 +41,12 @@ public class GlobalExceptionHandler {
      *
      * @param ex Exception
      * @return Mensaje de Error interno.
-     */    
+     */
+    /*
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGeneral(Exception ex) {
         return new ResponseEntity<>("Error interno del servidor: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    */
 
 }

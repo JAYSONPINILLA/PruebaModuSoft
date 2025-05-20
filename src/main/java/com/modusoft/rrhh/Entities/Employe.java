@@ -44,6 +44,7 @@ public class Employe {
     /**
      * Fecha de cumpleaños del empleado.
      */
+    @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private LocalDate birth_date;
 
     /**
@@ -69,6 +70,7 @@ public class Employe {
     /**
      * Fecha de Contratación del empleado.
      */
+    @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private LocalDate hire_date;
 
     /**
