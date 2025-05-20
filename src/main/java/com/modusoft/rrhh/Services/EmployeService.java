@@ -1,5 +1,7 @@
 package com.modusoft.rrhh.Services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.modusoft.rrhh.DTOs.DepartmentEmployeDTO;
 import com.modusoft.rrhh.DTOs.EmployeDTO;
-import com.modusoft.rrhh.Entities.DepartmentEmploye;
 import com.modusoft.rrhh.Entities.Employe;
 import com.modusoft.rrhh.Exceptions.ResourceNotFoundException;
-import com.modusoft.rrhh.Repositories.DepartmentEmployeRepository;
 import com.modusoft.rrhh.Repositories.EmployeRepository;
 import com.modusoft.rrhh.ServicesInterfaces.IEmploye;
+
+
 
 @Service
 public class EmployeService implements IEmploye{
@@ -34,11 +36,35 @@ public class EmployeService implements IEmploye{
     
     @Override
     public List<DepartmentEmployeDTO> findByDeptId(String id) {
-        List<DepartmentEmployeDTO> ListaDTO = new ArrayList<>();
+        List<DepartmentEmployeDTO> listaDTO = new ArrayList<>();
+        System.out.println("********** Before execute Query for return Employees By IdDept **********");
         List<Object[]> lista = repo.findByDeptId(id);
+        System.out.println("********** After execute Query for return Employees By IdDept **********");
+        int conta=0;
         for(Object[] row : lista){
             DepartmentEmployeDTO dto = new DepartmentEmployeDTO();
-            Integer empno = (Integer) row[0];
+            String nameDept = (String) row[0];
+            Integer emp_no = (Integer) row[1];
+            String nameEmp = (String) row[2];
+            
+            Date SQLDate = (java.sql.Date) row[3];
+            LocalDate fromDate = SQLDate.toLocalDate();
+            
+            SQLDate = (java.sql.Date) row[4];
+            LocalDate toDate = SQLDate.toLocalDate();
+
+            conta++;
+            System.out.println("********************************************");
+            System.out.println("********** Contador: " + conta);
+            System.out.println("********** Emp_No: " + emp_no + " **********");
+            System.out.println("********** Name: " + nameEmp + " **********");
+            System.out.println("********************************************");
+            dto.setNameDept(nameDept);
+            dto.setEmp_no(emp_no);
+            dto.setNameEmp(nameEmp);
+            dto.setFrom_date(fromDate);
+            dto.setTo_date(toDate);
+
             listaDTO.add(dto);
         }
         return listaDTO;
