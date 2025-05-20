@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.modusoft.rrhh.DTOs.EmployeDTO;
-import com.modusoft.rrhh.ENUMS.Genero;
-//import com.modusoft.rrhh.ENUMS.Genero;
 import com.modusoft.rrhh.Entities.Employe;
+import com.modusoft.rrhh.Exceptions.ResourceNotFoundException;
 import com.modusoft.rrhh.Repositories.EmployeRepository;
 import com.modusoft.rrhh.ServicesInterfaces.IEmploye;
 
@@ -36,7 +35,9 @@ public class EmployeService implements IEmploye{
 
     @Override
     public EmployeDTO update(Integer id, EmployeDTO dto) {
-        Employe e = repo.findById(id).get();
+        //Employe e = repo.findById(id).get();
+        Employe e = repo.findById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("Empleado no encontrado con EMP_No: " + id));
 
         return convertToDTO(repo.save(e));
     }
@@ -53,8 +54,7 @@ public class EmployeService implements IEmploye{
         dto.setFirst_name(e.getFirst_name());
         dto.setLast_name(e.getLast_name());
         dto.setHire_date(e.getHire_date());
-        Genero gen = e.getSex();
-        dto.setSex(gen);
+        dto.setSex(e.getSex());
         return dto;
     }
 
@@ -65,8 +65,7 @@ public class EmployeService implements IEmploye{
         e.setFirst_name(dto.getFirst_name());
         e.setLast_name(dto.getLast_name());
         e.setHire_date(dto.getHire_date());
-        Genero gen = dto.getSex();
-        e.setSex(gen);
+        e.setSex(dto.getSex());
         return e;
     }    
 }

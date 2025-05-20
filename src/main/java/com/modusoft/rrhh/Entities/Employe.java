@@ -1,8 +1,15 @@
+/**
+ * Esta clase representa un empleado dentro del sistema.
+ * Clave primaria: emp_no INT.
+ *
+ * @author Jayson Pinilla
+ * @see EmployeeService
+ */
+
 package com.modusoft.rrhh.Entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
-
 
 import com.modusoft.rrhh.ENUMS.Genero;
 import jakarta.persistence.EnumType;
@@ -28,36 +35,61 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employe {
+    /**
+     * Identificador único del empleado: dept_no INT.
+     */
     @Id
     private Integer emp_no;
 
-    private LocalDateTime birth_date;
+    /**
+     * Fecha de cumpleaños del empleado.
+     */
+    private LocalDate birth_date;
 
+    /**
+     * Nombre del empleado, VARCHAR(14).
+     */
     @Column(length=14)
     private String first_name;
 
+    /**
+     * Apellido del empleado, VARCHAR(16).
+     */
     @Column(length=16)
     private String last_name;
     
+    /**
+     * Sexo del empleado, ENUM('M', 'F').
+     * Se crea un ENUM en ./ENUMS/Genero
+     */
     @Column(name = "sex")
     @Enumerated(EnumType.STRING)
     private Genero sex;
-    
-    private LocalDateTime hire_date;
 
+    /**
+     * Fecha de Contratación del empleado.
+     */
+    private LocalDate hire_date;
+
+    /**
+     * Relacion Muchos a Muchos con tabla "dept_manager".
+     */
     @ManyToMany
     @JoinTable(
         name = "dept_manager",
         joinColumns = @JoinColumn(name = "emp_no"),
         inverseJoinColumns = @JoinColumn(name = "dept_no")
     )
-    private List<Department> deptManager;
-                             
+    private List<Department> deptManagers;
+
+    /**
+     * Relacion Muchos a Muchos con tabla "dept_emp".
+     */
     @ManyToMany
     @JoinTable(
         name = "dept_emp",
         joinColumns = @JoinColumn(name = "emp_no"),
         inverseJoinColumns = @JoinColumn(name = "dept_no")
     )
-    private List<Department> deptEmp;
+    private List<Department> deptEmps;
 }

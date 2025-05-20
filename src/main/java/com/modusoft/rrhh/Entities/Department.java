@@ -1,3 +1,11 @@
+/**
+ * Esta clase representa un empleado dentro del sistema.
+ * Clave primaria: dept_no CHAR(4).
+ *
+ * @author Jayson Pinilla
+ * @see DepartmentService
+ */
+
 package com.modusoft.rrhh.Entities;
 
 import java.util.List;
@@ -19,16 +27,28 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Department {
+    /**
+     * Identificador único del departamento: dept_no CHAR(4).
+     */    
     @Id
     @Column(length=4)
     private String dept_no;
 
+    /**
+     * Nombre del departamento: dept_name.
+     */      
     @Column(length=40)
     private String dept_name;
 
-    @ManyToMany(mappedBy="deptManager")
+    /**
+     * Relación Muchos a Muchos con "dept_manager".
+     */      
+    @ManyToMany(mappedBy="deptManagers")
     private List<Employe> employeesManager;
 
-    @ManyToMany(mappedBy="deptEmp")
+    /**
+     * Relación Muchos a Muchos con "dept_emp".
+     */      
+    @ManyToMany(mappedBy="deptEmps")
     private List<Employe> employeesEmp;
 }

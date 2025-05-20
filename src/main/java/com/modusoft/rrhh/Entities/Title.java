@@ -1,14 +1,19 @@
+/**
+ * Esta clase representa un empleado dentro del sistema.
+ * Clave primaria compuesta por dos campos: @EmbeddedId TitleId id = (empno INT, title VARCHAR(50)).
+ *
+ * @author Jayson Pinilla
+ * @see TitleService
+ */
 package com.modusoft.rrhh.Entities;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,10 +27,28 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Title {
-    @Id
-    private Integer emp_no;
+    /**
+     * Identificador único del titulo del cargo: (empno INT, title VARCHAR(50)).
+     */
+    @EmbeddedId
+    private TitleId id;
 
-    private LocalDateTime from_date;
+    /**
+     * Relacion con tabla "employees" a través del campo "emp_no".
+     * MapsId("emp_no") hace referencia al campo en el Embeddable "TitleId"
+     */
+    @ManyToOne
+    @MapsId("emp_no")
+    @JoinColumn(name = "emp_no")
+    private Employe employe;   
 
-    private LocalDateTime to_date;
+    /**
+     * Campo desde(fecha).
+     */
+    private LocalDate from_date;
+
+    /**
+     * Campo hasta(fecha).
+     */
+    private LocalDate to_date;
 }
