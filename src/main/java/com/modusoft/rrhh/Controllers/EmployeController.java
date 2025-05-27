@@ -19,10 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.modusoft.rrhh.DTOs.DepartmentEmployeDTO;
 import com.modusoft.rrhh.DTOs.EmployeDTO;
+import com.modusoft.rrhh.DTOs.IDeptEmpManagerDTO;
 import com.modusoft.rrhh.DTOs.IDeptEmpTitleSalaryDTO;
-import com.modusoft.rrhh.DTOs.dataEmployeDTO;
 import com.modusoft.rrhh.Services.EmployeService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -67,7 +66,7 @@ public class EmployeController {
     
     @GetMapping("/titleboss/{title}/{idBoss}")
     @Operation(summary = "Obtiene Employees por Nombre de Cargo y ID de Jefe")
-    public ResponseEntity<List<dataEmployeDTO>> findByTitleBoss(@PathVariable String title, @PathVariable Integer idBoss){
+    public ResponseEntity<List<IDeptEmpManagerDTO>> findByTitleBoss(@PathVariable String title, @PathVariable Integer idBoss){
         return ResponseEntity.ok(employeservice.findByTitleBoss(title, idBoss));
     }
 

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.modusoft.rrhh.DTOs.DepartmentDTO;
+import com.modusoft.rrhh.DTOs.DeptEmpCreateDTO;
+import com.modusoft.rrhh.DTOs.DeptEmpDTO;
 import com.modusoft.rrhh.Services.DepartmentService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,6 +68,18 @@ public class DepartmentController {
     @Operation(summary = "Crea un nuevo Department")
     public ResponseEntity<DepartmentDTO> create(DepartmentDTO departmentDTO){
         return new ResponseEntity<>(departmentservice.create(departmentDTO), HttpStatus.CREATED);
+    }
+
+    /**
+     * Crea un nuevo departmente en la base de datos.
+     *
+     * @param departmentDTO Datos del producto a crear
+     * @return Departmente creado
+     */
+    @PostMapping("/withManager")
+    @Operation(summary = "Crea un nuevo Department con Manager")
+    public ResponseEntity<DeptEmpDTO> createWithManager(DeptEmpCreateDTO departmentWithManagerDTO){
+        return new ResponseEntity<>(departmentservice.createWithManager(departmentWithManagerDTO), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

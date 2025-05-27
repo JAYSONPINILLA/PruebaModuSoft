@@ -45,17 +45,18 @@ public class GlobalExceptionHandler {
      * @return Mensaje de Error interno.
      */
     
-    //@ExceptionHandler(Exception.class)
-    //public ResponseEntity<String> handleGeneral(Exception ex, HttpServletRequest request) {
-    //    String path = request.getRequestURI();
-//
-    //    // Ignora excepciones de swagger
-    //    if (path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui")) {
-    //        System.out.println("***** Entra a : "+path);
-    //        throw new RuntimeException(ex); // deja que el framework lo maneje
-    //    }        
-    //    System.out.println("***** Error: "+ex.hashCode());
-    //    System.out.println("***** Error: "+ex.getMessage()+" ***");
-    //    return new ResponseEntity<>("Error interno del servidor: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    //}
+    /*
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneral(Exception ex, HttpServletRequest request) {
+        String path = request.getRequestURI();
+        // Ignora excepciones de swagger
+        if (path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui")) {
+            System.out.println("***** Entra a : "+path);
+            throw new RuntimeException(ex); // deja que el framework lo maneje
+        }        
+        System.out.println("***** Error: "+ex.hashCode());
+        System.out.println("***** Error: "+ex.getMessage()+" ***");
+        return new ResponseEntity<>("Error interno del servidor: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    */
 }
