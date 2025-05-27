@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.modusoft.rrhh.DTOs.DepartmentEmployeDTO;
 import com.modusoft.rrhh.DTOs.EmployeDTO;
+import com.modusoft.rrhh.DTOs.IDeptEmpTitleSalaryDTO;
 import com.modusoft.rrhh.DTOs.dataEmployeDTO;
 import com.modusoft.rrhh.Entities.Employe;
 import com.modusoft.rrhh.Exceptions.ResourceNotFoundException;
+import com.modusoft.rrhh.Repositories.DeptEmpRepository;
 import com.modusoft.rrhh.Repositories.EmployeRepository;
 import com.modusoft.rrhh.ServicesInterfaces.IEmploye;
 
@@ -22,23 +24,31 @@ import com.modusoft.rrhh.ServicesInterfaces.IEmploye;
 public class EmployeService implements IEmploye{
 
     @Autowired
-    EmployeRepository repo;
+    EmployeRepository repoEmployee;
+
+    @Autowired
+    DeptEmpRepository repoDeptEmp;
 
     @Override
     public List<EmployeDTO> findAll() {
-        return repo.findAll().stream().map(this::convertToDTO).toList();
+        return repoEmployee.findAll().stream().map(this::convertToDTO).toList();
     }
 
     @Override
     public EmployeDTO findById(Integer id) {
-        return convertToDTO(repo.findById(id).get());
+        return convertToDTO(repoEmployee.findById(id).get());
     }
     
     @Override
-    public List<DepartmentEmployeDTO> findByDeptId(String id) {
+    public List<IDeptEmpTitleSalaryDTO> findByDeptId(String id) {
+        System.out.println("********** Before execute Query for return Employees By IdDept **********");
+        List<IDeptEmpTitleSalaryDTO> query = repoDeptEmp.findEmployeesByDeptId(id);
+        System.out.println("********** After execute Query for return Employees By IdDept **********");
+        return query;
+        /*
         List<DepartmentEmployeDTO> listaDTO = new ArrayList<>();
         System.out.println("********** Before execute Query for return Employees By IdDept **********");
-        List<Object[]> lista = repo.findByDeptId(id);
+        List<Object[]> lista = repoEmployee.findByDeptId(id);
         System.out.println("********** After execute Query for return Employees By IdDept **********");
         int conta=0;
         for(Object[] row : lista){
@@ -74,14 +84,15 @@ public class EmployeService implements IEmploye{
 
             listaDTO.add(dto);
         }
-        return listaDTO;        
+        return listaDTO;
+        */
     }
 
     @Override
     public List<dataEmployeDTO> findByTitleBoss(String title, Integer idBoss) {
         List<dataEmployeDTO> listaDTO = new ArrayList<>();
         System.out.println("********** Before findByTitleBoss **********");
-        List<Object[]> lista = repo.findByTitleBoss(title, idBoss);
+        List<Object[]> lista = repoEmployee.findByTitleBoss(title, idBoss);
         System.out.println("********** After execute Query findByTitleBoss **********");
         int conta=0;
         for(Object[] row : lista){
@@ -119,20 +130,20 @@ public class EmployeService implements IEmploye{
     @Override
     public EmployeDTO create(EmployeDTO dto) {
         Employe e = convertToEmploye(dto);
-        return convertToDTO(repo.save(e));
+        return convertToDTO(repoEmployee.save(e));
     }
 
     @Override
     public EmployeDTO update(Integer id, EmployeDTO dto) {
-        Employe e = repo.findById(id)
+        Employe e = repoEmployee.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException("Empleado no encontrado con EMP_No: " + id));
 
-        return convertToDTO(repo.save(e));
+        return convertToDTO(repoEmployee.save(e));
     }
 
     @Override
     public void deleteById(Integer id) {
-        repo.deleteById(id);
+        repoEmployee.deleteById(id);
     }
 
     private EmployeDTO convertToDTO(Employe e){

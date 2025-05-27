@@ -1,9 +1,9 @@
 /**
- * Esta clase representa un empleado dentro del sistema.
- * Clave primaria compuesta por dos campos: @EmbeddedId TitleId id = (emp_no INT, title VARCHAR(50)).
+ * Esta clase representa un la tabla intermedia que Guarda los Empleados de cada Depto.
+ * Clave primaria compuesta por dos campos: @EmbeddedId DeptEmpId id = (emp_no INT, dept_no CHAR(4)).
  *
  * @author Jayson Pinilla
- * @see TitleService
+ * @see DeptEmpService
  */
 package com.modusoft.rrhh.Entities;
 
@@ -22,26 +22,35 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="titles")
+@Table(name="dept_emp")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Title {
+public class DeptEmp {
     /**
-     * Identificador único del titulo del cargo: (empno INT, title VARCHAR(50)).
+     * Identificador único del DeptManager: (empno INT, depno CHAR(4)).
      */
     @EmbeddedId
-    private TitleId id;
+    private DeptEmpId id;
 
     /**
      * Relacion con tabla "employees" a través del campo "emp_no".
-     * MapsId("emp_no") hace referencia al campo en el Embeddable "TitleId"
+     * MapsId("emp_no") hace referencia al campo en el Embeddable "DeptEmpId"
      */
     @ManyToOne
     @MapsId("emp_no")
     @JoinColumn(name = "emp_no")
-    private Employe employe;   
+    private Employe employee;
+
+    /**
+     * Relacion con tabla "departments" a través del campo "dep_no".
+     * MapsId("dep_no") hace referencia al campo en el Embeddable "DeptEmpId"
+     */    
+    @ManyToOne
+    @MapsId("dept_no")
+    @JoinColumn(name = "dept_no")
+    private Department department;
 
     /**
      * Campo desde(fecha).

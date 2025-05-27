@@ -12,11 +12,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DepartmentEmployeDTO {
-    private String nameDept;
     private Integer emp_no;
     private String nameEmp;
     private LocalDate from_date;
-    private LocalDate to_date;
+    private String nameDept;
     private String nameCargo;
     private Integer salary;
+    private LocalDate to_date;
 }

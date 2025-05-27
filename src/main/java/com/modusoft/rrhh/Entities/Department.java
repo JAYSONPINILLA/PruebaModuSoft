@@ -10,10 +10,13 @@ package com.modusoft.rrhh.Entities;
 
 import java.util.List;
 
+import com.modusoft.rrhh.Services.DepartmentService;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,14 +45,17 @@ public class Department {
 
     /**
      * Relación Muchos a Muchos con "dept_manager".
-     */      
-    @ManyToMany(mappedBy="deptManagers")
-    private List<Employe> employeesManager;
+     */
+    //@ManyToMany(mappedBy="deptManagers")
+    //private List<Employe> employeesManager;
+    @OneToMany(mappedBy = "department")
+    private List<DeptManager> deptManagerEntries;    
 
     /**
      * Relación Muchos a Muchos con "dept_emp".
-     */      
-    @ManyToMany(mappedBy="deptEmps")
-    private List<Employe> employeesEmp;
-   
+     */
+    //@ManyToMany(mappedBy="deptEmps")
+    //private List<Employe> employeesEmp;
+    @OneToMany(mappedBy = "department")
+    private List<DeptEmp> deptEmpEntries;    
 }

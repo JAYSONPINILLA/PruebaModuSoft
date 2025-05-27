@@ -22,6 +22,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -76,22 +77,26 @@ public class Employe {
     /**
      * Relacion Muchos a Muchos con tabla "dept_manager".
      */
-    @ManyToMany
-    @JoinTable(
-        name = "dept_manager",
-        joinColumns = @JoinColumn(name = "emp_no"),
-        inverseJoinColumns = @JoinColumn(name = "dept_no")
-    )
-    private List<Department> deptManagers;
+    //@ManyToMany
+    //@JoinTable(
+    //    name = "dept_manager",
+    //    joinColumns = @JoinColumn(name = "emp_no"),
+    //    inverseJoinColumns = @JoinColumn(name = "dept_no")
+    //)
+    //private List<Department> deptManagers;
+    @OneToMany(mappedBy = "employee")
+    private List<DeptManager> deptManagerEntries;    
 
     /**
      * Relacion Muchos a Muchos con tabla "dept_emp".
      */
-    @ManyToMany
-    @JoinTable(
-        name = "dept_emp",
-        joinColumns = @JoinColumn(name = "emp_no"),
-        inverseJoinColumns = @JoinColumn(name = "dept_no")
-    )
-    private List<Department> deptEmps;
+    //@ManyToMany
+    //@JoinTable(
+    //    name = "dept_emp",
+    //    joinColumns = @JoinColumn(name = "emp_no"),
+    //    inverseJoinColumns = @JoinColumn(name = "dept_no")
+    //)
+    //private List<Department> deptEmps;
+    @OneToMany(mappedBy = "employee")
+    private List<DeptEmp> deptEmpEntries;     
 }

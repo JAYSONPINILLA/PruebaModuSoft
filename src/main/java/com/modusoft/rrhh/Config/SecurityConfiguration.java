@@ -15,8 +15,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults()) // Habilita CORS
-                .csrf(csrf -> csrf.disable())    // Desactiva CSRF si estás trabajando con APIs
                 .authorizeHttpRequests(auth -> auth
+                        //.requestMatchers(
+                        //    "/v3/api-docs/**",
+                        //    "/swagger-ui/**",
+                        //    "/swagger-ui.html").permitAll()                
                         .anyRequest().permitAll()
                 )
                 .csrf(csrf -> csrf.disable());
